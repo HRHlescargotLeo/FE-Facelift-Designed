@@ -199,7 +199,8 @@ body.anno-off .anno,body.anno-off .mk-in{display:none}
   background:transparent;color:var(--ink);cursor:pointer;
   display:inline-flex;align-items:center;justify-content:center;
 }
-.fe-arrow:hover{background:var(--ink);color:var(--surface)}
+.fe-arrow:hover:not([disabled]){background:var(--ink);color:var(--surface)}
+.fe-arrow[disabled]{opacity:.32;cursor:not-allowed}
 .fe-arrow svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
 .r-c .fe-arrow{border-color:var(--line);color:var(--peacock)}
 .r-c .fe-arrow:hover{background:var(--peacock);border-color:var(--peacock);color:#fff}
@@ -359,7 +360,11 @@ body.anno-off .anno,body.anno-off .mk-in{display:none}
    PEOPLE PROFILE
    ============================================================ */
 .fe-profile{display:grid;grid-template-columns:300px 1fr;gap:44px;align-items:start}
-.fe-rail{position:sticky;top:70px;background:var(--surface)}
+.fe-rail{background:var(--surface)}
+/* brief v3: sticky only where the viewport is tall enough for it not to trap content */
+@media (min-height:820px) and (min-width:1001px){
+  .fe-rail{position:sticky;top:70px}
+}
 .r-a .fe-rail.plain{border-top:2px solid var(--rule)}
 .r-b .fe-rail{background:var(--midnight-90)}
 .r-c .fe-rail{background:var(--greysky-40);border-radius:var(--radius-lg);overflow:hidden}
@@ -497,6 +502,602 @@ body.anno-off .anno,body.anno-off .mk-in{display:none}
 @media (prefers-reduced-motion:reduce){
   .fe-hero-track{transition:none}
   .fe-card__media img{transition:none}
+}
+
+/* ============================================================
+   IDEAS D & E — expressive concepts
+   These deviate from the signed-off wireframe layouts.
+   ============================================================ */
+
+.fx{--fx-ink:var(--midnight);--fx-paper:#fff;background:var(--fx-paper);color:var(--fx-ink);font-family:var(--sans)}
+.fx-num{
+  font-family:var(--display);font-weight:600;line-height:.8;letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums;
+}
+.fx-kicker{font-family:var(--display);font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:500}
+.fx-rule{height:1px;background:currentColor;opacity:.25}
+
+/* the Spark — stand-in for the brand asset */
+.spark{display:block}
+.spark path,.spark line{stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+
+/* ---------- FEATURED D: magazine index ---------- */
+.fx-index{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:start}
+.fx-lead{position:relative}
+.fx-lead__img{aspect-ratio:4/3;overflow:hidden;position:relative;z-index:1}
+.fx-lead__img img{width:100%;height:100%;object-fit:cover}
+.fx-lead__plate{
+  position:relative;z-index:2;margin:-72px 0 0 0;width:86%;
+  background:var(--midnight);color:#fff;padding:30px 32px 28px;
+}
+.fx-lead__plate h3{font-size:30px;line-height:1.12;margin:12px 0 14px;font-weight:400}
+.fx-list{list-style:none;margin:0;padding:0}
+.fx-list li{border-top:1px solid rgba(0,61,76,.18)}
+.fx-list li:last-child{border-bottom:1px solid rgba(0,61,76,.18)}
+.fx-list a{
+  display:grid;grid-template-columns:62px 1fr;gap:20px;align-items:start;
+  padding:22px 0;text-decoration:none;color:inherit;transition:padding .25s ease;
+}
+.fx-list a:hover,.fx-list a:focus-visible{padding-left:10px;outline:0}
+.fx-list .n{font-family:var(--display);font-size:34px;font-weight:600;line-height:.85;color:var(--merlot);opacity:.5;transition:opacity .25s}
+.fx-list a:hover .n{opacity:1}
+.fx-list h4{font-size:19px;line-height:1.3;margin:6px 0 4px;font-weight:400}
+.fx-preview{position:sticky;top:80px}
+.fx-preview__frame{aspect-ratio:3/2;overflow:hidden;background:var(--greysky-40)}
+.fx-preview__frame img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- FEATURED E: offset mosaic ---------- */
+.fx-mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;align-items:start}
+.fx-mcard{position:relative;text-decoration:none;color:inherit;display:block}
+.fx-mcard:nth-child(2){margin-top:64px}
+.fx-mcard:nth-child(3){margin-top:128px}
+.fx-mcard__block{position:absolute;inset:auto auto 0 0;width:74%;height:76%;z-index:0}
+.fx-mcard__img{position:relative;z-index:1;aspect-ratio:3/4;overflow:hidden;margin-left:26px}
+.fx-mcard__img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,0,.2,1)}
+.fx-mcard:hover .fx-mcard__img img{transform:scale(1.05)}
+.fx-mcard__cat{
+  position:absolute;left:-4px;top:18px;z-index:2;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-family:var(--display);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  background:#fff;padding:12px 6px;
+}
+.fx-mcard__body{position:relative;z-index:2;background:#fff;margin:-38px 26px 0 0;padding:22px 24px 4px}
+.fx-mcard__body h4{font-size:20px;line-height:1.28;margin:8px 0 10px;font-weight:400}
+.fx-statement{
+  grid-column:1/-1;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;
+  padding:8px 0 0;
+}
+.fx-statement p{margin:0;font-size:19px;max-width:30ch;color:var(--ink-soft)}
+.fx-statement strong{
+  font-family:var(--display);font-size:62px;line-height:.9;letter-spacing:.01em;
+  text-transform:uppercase;color:var(--purple);font-weight:600;
+}
+
+/* ---------- BANNER D: overlapping masthead ---------- */
+.fx-mast{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:400px;background:var(--fx-paper)}
+.fx-mast__copy{padding:48px 0 48px 44px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:3}
+.fx-mast__copy h2{
+  font-family:var(--display);font-size:60px;line-height:.92;letter-spacing:.01em;text-transform:uppercase;
+  margin:14px 0 0;font-weight:600;color:var(--midnight);
+}
+.fx-mast__copy h2 em{font-style:normal;color:var(--merlot);display:block}
+.fx-mast__bar{width:64px;height:5px;background:var(--merlot);margin:0 0 4px}
+.fx-mast__media{position:relative;overflow:hidden}
+.fx-mast__media img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.fx-mast__story{
+  position:absolute;left:-90px;bottom:34px;width:330px;z-index:4;
+  background:#fff;padding:22px 24px;border-left:5px solid var(--merlot);
+  box-shadow:0 10px 34px rgba(0,0,0,.16);
+}
+.fx-mast__story h4{font-size:18px;line-height:1.28;margin:8px 0 14px;font-weight:400;min-height:46px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fx-mast__foot{
+  grid-column:1/-1;display:flex;align-items:center;gap:26px;flex-wrap:wrap;
+  padding:16px 44px;border-top:1px solid var(--espresso);
+}
+
+/* ---------- BANNER E: shutter ---------- */
+.fx-shutter{display:flex;height:420px;overflow:hidden}
+.fx-col{position:relative;flex:0 0 auto;width:96px;transition:width .6s cubic-bezier(.4,0,.2,1);overflow:hidden;cursor:pointer}
+.fx-col.is-on{width:100%}
+.fx-col img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fx-col__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,61,76,.86) 0%,rgba(0,61,76,.5) 42%,rgba(0,61,76,0) 78%)}
+.fx-col__tab{
+  position:absolute;left:0;top:0;bottom:0;width:96px;border:0;background:transparent;cursor:pointer;
+  display:flex;align-items:flex-end;justify-content:center;padding:0 0 26px;color:#fff;z-index:3;
+}
+.fx-col__tab span{
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-family:var(--display);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+}
+.fx-col__tab::after{content:"";position:absolute;left:50%;top:26px;width:1px;height:46px;background:rgba(255,255,255,.5)}
+.fx-col.is-on .fx-col__tab::after{background:var(--banana)}
+.fx-col__body{
+  position:absolute;left:112px;bottom:38px;right:38px;z-index:2;color:#fff;
+  opacity:0;transform:translateY(14px);transition:opacity .45s .15s,transform .45s .15s;
+  max-width:440px;
+}
+.fx-col.is-on .fx-col__body{opacity:1;transform:none}
+.fx-col__body h4{font-size:26px;line-height:1.14;margin:10px 0 16px;font-weight:400}
+.fx-prop{
+  background:var(--midnight);color:#fff;padding:34px 44px;
+  display:flex;align-items:center;gap:32px;flex-wrap:wrap;
+}
+.fx-prop h2{
+  font-family:var(--display);font-size:38px;line-height:.98;letter-spacing:.02em;text-transform:uppercase;
+  margin:0;font-weight:600;max-width:16ch;
+}
+.fx-prop p{margin:0;color:rgba(255,255,255,.82);max-width:34ch;font-size:15px}
+
+/* ---------- ACCORDION D: chapters ---------- */
+.fx-chapters{display:grid;grid-template-columns:330px 1fr;gap:0;border-top:2px solid var(--espresso)}
+.fx-chap{
+  display:flex;gap:18px;align-items:baseline;width:100%;text-align:left;
+  background:transparent;border:0;border-bottom:1px solid rgba(45,41,38,.16);
+  padding:24px 26px 24px 0;cursor:pointer;color:var(--midnight);
+}
+.fx-chap .n{font-family:var(--display);font-size:15px;font-weight:600;color:var(--merlot);opacity:.55;letter-spacing:.06em}
+.fx-chap h4{font-family:var(--display);font-size:21px;letter-spacing:.01em;margin:0;font-weight:500;opacity:.62;transition:opacity .2s}
+.fx-chap:hover h4{opacity:.9}
+.fx-chap.is-on h4{opacity:1}
+.fx-chap.is-on .n{opacity:1}
+.fx-chap.is-on{background:linear-gradient(90deg,rgba(151,27,47,.07),transparent)}
+.fx-chappane{display:none;padding:40px 0 40px 56px;border-left:1px solid rgba(45,41,38,.16)}
+.fx-chappane.is-on{display:grid;grid-template-columns:1fr 210px;gap:36px;align-items:start}
+.fx-chappane .lede{font-size:26px;line-height:1.28;margin:0 0 20px;color:var(--midnight);font-weight:300}
+.fx-chappane p{margin:0 0 14px;color:var(--ink-soft);max-width:56ch;font-size:15px}
+.fx-chapmark{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;color:#fff}
+
+/* ---------- ACCORDION E: colour columns ---------- */
+.fx-cols{display:flex;min-height:420px;overflow:hidden}
+.fx-cols .fx-col{width:104px;cursor:pointer}
+.fx-cols .fx-col.is-on{width:100%}
+.fx-colpad{position:absolute;inset:0;padding:30px 34px;display:flex;flex-direction:column;justify-content:flex-end}
+.fx-cols .fx-col__body{position:static;opacity:0;max-width:540px;transition:opacity .4s .18s}
+.fx-cols .fx-col.is-on .fx-col__body{opacity:1}
+.fx-cols .fx-col__body h4{font-family:var(--display);font-size:30px;letter-spacing:.02em;text-transform:uppercase;margin:0 0 14px;font-weight:600}
+.fx-cols .fx-col__body p{margin:0 0 12px;font-size:14.5px;line-height:1.6;opacity:.92}
+.fx-colnum{
+  position:absolute;left:0;top:0;bottom:0;width:104px;display:flex;align-items:flex-end;
+  justify-content:center;padding:0 0 28px;z-index:3;border:0;background:transparent;cursor:pointer;color:inherit;
+}
+.fx-colnum span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-size:13px;letter-spacing:.2em;text-transform:uppercase}
+
+/* ---------- IMAGE & TEXT D: spark tiles ---------- */
+.fx-spark{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.fx-sparktile{position:relative;padding:40px 34px 34px;overflow:hidden;min-height:300px;display:flex;flex-direction:column}
+.fx-sparktile .spark{position:absolute;right:-26px;top:-26px;width:150px;height:150px;opacity:.22}
+.fx-sparktile h4{font-family:var(--display);font-size:26px;line-height:1.02;letter-spacing:.02em;text-transform:uppercase;margin:0 0 12px;font-weight:600;position:relative}
+.fx-sparktile p{margin:0 0 22px;font-size:14.5px;line-height:1.55;opacity:.9;position:relative}
+.fx-sparktile .foot{margin-top:auto;position:relative}
+.fx-sparknum{font-family:var(--display);font-size:13px;letter-spacing:.2em;opacity:.7;margin:0 0 20px;position:relative}
+
+/* ---------- IMAGE & TEXT E: stagger band ---------- */
+.fx-stagger{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:end;padding-bottom:6px}
+.fx-stile{position:relative;padding:34px 30px 30px;text-decoration:none;color:inherit;display:block;transition:transform .3s cubic-bezier(.2,0,.2,1)}
+.fx-stile:hover{transform:translateY(-10px)}
+.fx-stile:nth-child(2){min-height:330px}
+.fx-stile:nth-child(1),.fx-stile:nth-child(3){min-height:272px}
+.fx-stile h4{font-family:var(--display);font-size:24px;line-height:1.04;letter-spacing:.02em;text-transform:uppercase;margin:16px 0 10px;font-weight:600}
+.fx-stile p{margin:0 0 20px;font-size:14px;line-height:1.55;opacity:.92}
+.fx-stile .arrow{
+  width:42px;height:42px;border-radius:50%;border:1px solid currentColor;
+  display:inline-flex;align-items:center;justify-content:center;transition:background .2s,color .2s;
+}
+.fx-stile:hover .arrow{background:currentColor}
+.fx-stile:hover .arrow svg{stroke:#fff}
+.fx-horizonband{height:1px;background:var(--espresso);margin:0 0 -1px}
+
+/* ---------- PROFILE D: editorial cover ---------- */
+.fx-cover{position:relative;background:var(--midnight);color:#fff;overflow:hidden}
+.fx-cover__in{display:grid;grid-template-columns:1fr 370px;gap:40px;align-items:end;padding:44px 44px 0}
+.fx-cover h2{
+  font-family:var(--display);font-size:78px;line-height:.86;letter-spacing:.01em;text-transform:uppercase;
+  margin:16px 0 18px;font-weight:600;
+}
+.fx-cover .role{font-family:var(--display);font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--banana)}
+.fx-cover blockquote{
+  margin:0 0 30px;font-size:22px;line-height:1.42;font-weight:300;max-width:34ch;
+  border-left:3px solid var(--banana);padding-left:20px;
+}
+.fx-cover__photo{position:relative;align-self:end}
+.fx-cover__photo img{width:100%;display:block;filter:grayscale(.15)}
+.fx-contactbar{
+  display:flex;gap:28px;flex-wrap:wrap;align-items:center;
+  background:var(--banana);color:var(--midnight);padding:14px 44px;
+}
+.fx-contactbar a{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-size:13.5px;font-weight:500}
+.fx-contactbar a:hover{text-decoration:underline;text-underline-offset:3px}
+.fx-contactbar svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7}
+.fx-twocol{display:grid;grid-template-columns:1fr 300px;gap:52px;padding:44px}
+.fx-bigtags{display:flex;flex-direction:column;gap:2px}
+.fx-bigtags a{
+  font-family:var(--display);font-size:22px;letter-spacing:.02em;text-transform:uppercase;
+  text-decoration:none;color:var(--midnight);padding:9px 0;border-bottom:1px solid rgba(0,61,76,.16);
+  display:flex;justify-content:space-between;align-items:center;font-weight:500;
+}
+.fx-bigtags a:hover{color:var(--merlot)}
+
+/* ---------- PROFILE E: quote-led ---------- */
+.fx-qhero{display:grid;grid-template-columns:400px 1fr;gap:50px;align-items:center;padding:44px}
+.fx-qphoto{position:relative}
+.fx-qphoto__shape{position:absolute;inset:26px -18px -18px 26px;background:var(--greysky);z-index:0}
+.fx-qphoto img{position:relative;z-index:1;width:100%;display:block}
+.fx-qhero .role{font-family:var(--display);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--peacock)}
+.fx-qhero h2{font-family:var(--display);font-size:52px;line-height:.94;letter-spacing:.01em;text-transform:uppercase;margin:12px 0 22px;color:var(--midnight);font-weight:600}
+.fx-qhero blockquote{margin:0 0 26px;font-size:25px;line-height:1.4;font-weight:300;color:var(--midnight);max-width:32ch}
+.fx-qhero blockquote span{color:var(--peacock)}
+.fx-insightgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.fx-icard{text-decoration:none;color:inherit;display:block;border-top:2px solid var(--midnight);padding-top:16px}
+.fx-icard h4{font-size:18px;line-height:1.3;margin:10px 0 8px;font-weight:400;color:var(--midnight)}
+.fx-icard:hover h4{color:var(--peacock)}
+
+/* ---------- DIRECTORY D: mosaic wall ---------- */
+.fx-wall{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.fx-wtile{position:relative;aspect-ratio:3/4;overflow:hidden;text-decoration:none;color:inherit;display:block}
+.fx-wtile img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s,filter .4s;mix-blend-mode:multiply}
+.fx-wtile:hover img{transform:scale(1.04)}
+.fx-wtile__cap{
+  position:absolute;left:0;right:0;bottom:0;padding:16px 18px;
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent);color:#fff;
+}
+.fx-wtile__cap strong{display:block;font-size:16px;font-weight:500}
+.fx-wtile__cap span{font-size:12px;opacity:.86}
+.fx-wtile__hover{
+  position:absolute;inset:0;background:var(--midnight);color:#fff;padding:22px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  opacity:0;transition:opacity .3s;
+}
+.fx-wtile:hover .fx-wtile__hover,.fx-wtile:focus-visible .fx-wtile__hover{opacity:1}
+.fx-wtile__hover p{margin:10px 0 0;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.9)}
+.fx-pillbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* ---------- DIRECTORY E: typographic index ---------- */
+.fx-az{display:grid;grid-template-columns:1fr 330px;gap:56px;align-items:start}
+.fx-azlist{border-top:1px solid rgba(0,61,76,.2)}
+.fx-azrow{
+  display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  padding:16px 0;border-bottom:1px solid rgba(0,61,76,.14);text-decoration:none;color:inherit;
+  transition:padding-left .25s,background .25s;
+}
+.fx-azrow:hover,.fx-azrow:focus-visible{padding-left:14px;background:rgba(207,224,215,.34);outline:0}
+.fx-azrow strong{font-family:var(--display);font-size:27px;letter-spacing:.02em;font-weight:500;color:var(--midnight)}
+.fx-azrow .meta{font-size:12.5px;color:var(--ink-soft);text-align:right;white-space:nowrap}
+.fx-azletter{font-family:var(--display);font-size:13px;letter-spacing:.24em;color:var(--merlot);padding:22px 0 8px;font-weight:600}
+.fx-azpreview{position:sticky;top:80px}
+.fx-azpreview__frame{aspect-ratio:4/5;overflow:hidden;background:var(--greysky-40)}
+.fx-azpreview__frame img{width:100%;height:100%;object-fit:cover;object-position:top center}
+
+@media (max-width:1000px){
+  .fx-index,.fx-az,.fx-twocol,.fx-qhero,.fx-cover__in{grid-template-columns:1fr}
+  .fx-mosaic,.fx-spark,.fx-stagger,.fx-insightgrid{grid-template-columns:1fr 1fr}
+  .fx-wall{grid-template-columns:repeat(2,1fr)}
+  .fx-mast{grid-template-columns:1fr}
+  .fx-mast__story{position:static;width:auto;margin:20px 0 0;box-shadow:none}
+  .fx-chapters{grid-template-columns:1fr}
+  .fx-chappane{padding-left:0;border-left:0}
+  .fx-chappane.is-on{grid-template-columns:1fr}
+  .fx-mcard:nth-child(2),.fx-mcard:nth-child(3){margin-top:0}
+  .fx-shutter,.fx-cols{flex-direction:column;height:auto}
+  .fx-col,.fx-cols .fx-col{width:100% !important;min-height:190px}
+  .fx-col__tab,.fx-colnum{position:static;width:100%;height:auto;padding:16px;justify-content:flex-start}
+  .fx-col__tab span,.fx-colnum span{writing-mode:horizontal-tb;transform:none}
+  .fx-col__body{position:static;opacity:1 !important;transform:none !important;padding:0 16px 20px}
+  .fx-cover h2{font-size:48px}
+}
+@media (max-width:640px){
+  .fx-mosaic,.fx-spark,.fx-stagger,.fx-insightgrid,.fx-wall{grid-template-columns:1fr}
+  .fx-statement strong{font-size:40px}
+  .fx-mast__copy h2{font-size:38px}
+}
+
+
+/* ============================================================
+   RESPONSIVE DEMONSTRATION FRAMES
+   .vp is a container-query context, so components respond to the
+   frame width rather than the browser width.
+   ============================================================ */
+.vp-row{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap}
+.vp{container-type:inline-size;border:1px solid #D8D8D2;background:#fff;overflow:hidden;flex:none}
+.vp--tablet{width:760px;max-width:100%}
+.vp--mobile{width:390px;max-width:100%}
+.vp__bar{background:#F0F0EC;border-bottom:1px solid #E2E2DE;padding:6px 12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#6f6f69}
+
+@container (max-width: 820px){
+  .fe-banner,.d-banner{grid-template-columns:1fr}
+  .fe-banner__media,.d-banner__media{min-height:260px}
+  .d-banner__media{border-left:0;border-top:2px solid var(--rule)}
+  .fe-acc,.e-acc,.d-acc{grid-template-columns:1fr}
+  .fe-idx,.e-acc__idx,.d-acc__idx{border-right:0;border-bottom:1px solid var(--line)}
+  .d-acc__panel{border-left:0}
+  .fe-profile,.d-profile,.fe-dir,.d-feature{grid-template-columns:1fr;gap:24px}
+  .fe-rail{position:static}
+  .fe-track > *{flex:0 0 calc((100% - 24px)/2)}
+  .fe-tiles--3,.d-tiles{grid-template-columns:repeat(2,1fr)}
+  .fe-people{grid-template-columns:repeat(2,1fr)}
+  .fe-pad{padding:22px 22px}
+  .e-panel__in,.d-banner__copy{padding:26px 24px 0}
+  .d-ghost{font-size:120px}
+}
+@container (max-width: 480px){
+  .fe-track > *{flex:0 0 86%}
+  .fe-tiles--3,.fe-tiles--2,.d-tiles,.fe-people{grid-template-columns:1fr}
+  .d-tiles > *{border-right:0;border-bottom:1px solid var(--line)}
+  .fe-agg__item{grid-template-columns:96px 1fr;gap:14px}
+  .d-list a{grid-template-columns:44px 1fr;gap:12px}
+  .d-list .role,.d-list .exp{display:none}
+  .fe-sechead{flex-direction:column;align-items:flex-start;gap:12px}
+  .d-storybar{grid-template-columns:1fr;gap:10px}
+  .fe-pad{padding:18px 16px}
+  .e-panel__in,.d-banner__copy{padding:22px 18px 0}
+  .fe-banner__copy{padding:24px 18px}
+  .d-namebar h2{font-size:38px}
+  .e-spark{width:170px;height:170px;right:-58px}
+  .fe-search{flex-wrap:wrap}
+  .fe-search input{width:100%;flex:1 0 100%}
+  .fe-search button{width:100%}
+}
+
+/* ============================================================
+   Frontier Economics — bolder routes
+   D: Broadsheet   (type-led editorial)
+   E: Media card   (the social-card system brought onto the site)
+   These deviate from the signed-off wireframe layouts by design.
+   ============================================================ */
+
+/* ---------- ROUTE D — BROADSHEET ---------- */
+.r-d{
+  --surface:#FBFAF8; --surface-2:#F2F0EA;
+  --ink:#141414; --ink-soft:#5B5B53;
+  --accent:var(--merlot); --on-accent:#fff;
+  --line:#DAD6CD; --rule:#141414;
+  --radius:0px; --radius-lg:0px; --pill:0px; --shadow:none;
+  background:var(--surface);color:var(--ink);
+}
+.r-d .fe-sechead{border-bottom:2px solid var(--rule);padding-bottom:12px;align-items:center}
+.r-d .fe-sechead h3{font-size:34px;letter-spacing:.04em}
+
+.d-kicker{
+  font-family:var(--display);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 14px;display:flex;align-items:center;gap:12px;font-weight:500;
+}
+.d-kicker::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.d-num{
+  font-family:var(--display);font-weight:600;line-height:.8;
+  color:transparent;-webkit-text-stroke:1.4px var(--ink);
+  letter-spacing:-.01em;display:block;
+}
+.d-num--solid{color:var(--accent);-webkit-text-stroke:0}
+
+/* banner */
+.d-banner{display:grid;grid-template-columns:1.45fr .75fr;min-height:360px}
+.d-banner__copy{padding:42px 44px 34px;display:flex;flex-direction:column;justify-content:center}
+.d-banner__copy h2{
+  font-family:var(--display);font-weight:600;text-transform:uppercase;
+  font-size:clamp(38px,4.4vw,66px);line-height:.92;letter-spacing:.01em;
+  margin:0 0 18px;max-width:14ch;color:var(--ink);
+}
+.d-banner__media{position:relative;overflow:hidden;border-left:2px solid var(--rule)}
+.d-storybar{
+  display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;
+  border-top:2px solid var(--rule);padding:18px 44px;background:var(--surface);
+}
+.d-storybar h4{
+  font-family:var(--display);text-transform:uppercase;font-size:21px;letter-spacing:.02em;
+  margin:4px 0 0;font-weight:500;line-height:1.08;
+}
+
+/* featured items — lead plus numbered index */
+.d-feature{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+.d-lead{text-decoration:none;color:inherit;display:block}
+.d-lead .ph{aspect-ratio:3/2;overflow:hidden;background:var(--surface-2)}
+.d-lead img{width:100%;height:100%;object-fit:cover}
+.d-lead h4{
+  font-family:var(--display);font-weight:600;text-transform:uppercase;
+  font-size:clamp(26px,2.5vw,38px);line-height:.98;letter-spacing:.01em;margin:18px 0 12px;
+}
+.d-lead p{font-size:15px;color:var(--ink-soft);max-width:46ch;margin:0 0 14px}
+.d-index{display:block}
+.d-index a{
+  display:grid;grid-template-columns:54px 1fr;gap:20px;align-items:start;
+  padding:18px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit;
+}
+.d-index a:first-child{border-top:2px solid var(--rule)}
+.d-index a:hover h4{color:var(--accent)}
+.d-index .d-num{font-size:30px}
+.d-index h4{
+  font-family:var(--display);text-transform:uppercase;font-weight:500;
+  font-size:19px;line-height:1.05;letter-spacing:.02em;margin:0 0 6px;
+}
+.d-index .meta{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* accordion */
+.d-acc{display:grid;grid-template-columns:1fr 1.5fr;border-top:2px solid var(--rule)}
+.d-acc__idx button{
+  display:grid;grid-template-columns:54px 1fr;gap:18px;align-items:start;width:100%;
+  text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);
+  padding:22px 26px 22px 0;cursor:pointer;color:var(--ink-soft);
+}
+.d-acc__idx button h4{
+  font-family:var(--display);text-transform:uppercase;font-weight:500;font-size:22px;
+  line-height:1;letter-spacing:.02em;margin:0;
+}
+.d-acc__idx button .d-num{font-size:26px}
+.d-acc__idx button:hover{color:var(--ink)}
+.d-acc__idx button.is-on{color:var(--ink)}
+.d-acc__idx button.is-on .d-num{color:var(--accent);-webkit-text-stroke:0}
+.d-acc__panel{position:relative;border-left:2px solid var(--rule);padding:34px 40px;overflow:hidden}
+.d-ghost{
+  position:absolute;right:-14px;top:-26px;font-family:var(--display);font-weight:600;
+  font-size:190px;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--line);
+  pointer-events:none;user-select:none;
+}
+.d-acc__panel .lede{
+  font-size:23px;line-height:1.35;color:var(--ink);max-width:40ch;margin:0 0 18px;position:relative;
+}
+.d-acc__panel p{position:relative;color:var(--ink-soft);max-width:58ch;font-size:14.5px;margin:0 0 14px}
+
+/* image and text — numbered columns, hairline separators */
+.d-tiles{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--rule)}
+.d-tiles > *{padding:30px 28px 26px;border-right:1px solid var(--line);display:flex;flex-direction:column}
+.d-tiles > *:last-child{border-right:0}
+.d-tiles h4{
+  font-family:var(--display);text-transform:uppercase;font-weight:600;font-size:25px;
+  line-height:.98;letter-spacing:.02em;margin:16px 0 12px;
+}
+.d-tiles .d-num{font-size:44px}
+.d-tiles p{font-size:14px;color:var(--ink-soft);margin:0 0 20px}
+.d-tiles .foot{margin-top:auto}
+
+/* profile */
+.d-namebar{border-bottom:2px solid var(--rule);padding:0 0 18px;margin:0 0 30px}
+.d-namebar h2{
+  font-family:var(--display);font-weight:600;text-transform:uppercase;
+  font-size:clamp(42px,6vw,88px);line-height:.85;letter-spacing:.01em;margin:8px 0 0;
+}
+.d-profile{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start}
+.d-portrait{aspect-ratio:4/5;overflow:hidden;background:var(--surface-2);border-bottom:2px solid var(--rule)}
+.d-portrait img{width:100%;height:100%;object-fit:cover;object-position:top center}
+
+/* directory — index list */
+.d-list{border-top:2px solid var(--rule)}
+.d-list a{
+  display:grid;grid-template-columns:56px 1fr 190px 150px;gap:22px;align-items:center;
+  padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;
+}
+.d-list a:hover{background:var(--surface-2)}
+.d-list img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:top center;background:var(--surface-2)}
+.d-list h4{
+  font-family:var(--display);text-transform:uppercase;font-weight:500;font-size:22px;
+  letter-spacing:.02em;margin:0;line-height:1;
+}
+.d-list .role,.d-list .exp{font-size:12.5px;color:var(--ink-soft)}
+.d-az{display:flex;flex-wrap:wrap;gap:1px;margin:0 0 20px}
+.d-az a{
+  font-family:var(--display);font-size:13px;letter-spacing:.06em;padding:6px 10px;
+  text-decoration:none;color:var(--ink-soft);
+}
+.d-az a:hover{background:var(--surface-2);color:var(--ink)}
+.d-az a.is-on{background:var(--ink);color:var(--surface)}
+.d-az a.is-off{color:#C9C5BC;pointer-events:none}
+
+/* ---------- ROUTE E — MEDIA CARD ---------- */
+.r-e{
+  --surface:#fff; --surface-2:#F4F5F2;
+  --ink:var(--espresso); --ink-soft:#5B5B53;
+  --accent:var(--merlot); --on-accent:#fff;
+  --line:#E4E4DE; --rule:var(--espresso);
+  --radius:0px; --pill:0px; --shadow:none;
+  --sp1:#971B2F; --sp2:#F2CD00; --sp3:#2F6F7A; --sp4:#9EA700; --sp5:#003D4C;
+  background:var(--surface);color:var(--ink);
+}
+.r-e .fe-sechead h3{font-size:30px}
+
+/* tone themes — surface plus the foreground it forces */
+.tone{--tone:#fff;--on-tone:var(--espresso)}
+.tone-merlot  {--tone:#971B2F;--on-tone:#fff; --sp1:#F2CD00;--sp2:#CFE0D7;--sp3:#fff;--sp4:#F0BFC4;--sp5:#E3E935}
+.tone-midnight{--tone:#003D4C;--on-tone:#fff; --sp1:#F2CD00;--sp2:#9EA700;--sp3:#CFE0D7;--sp4:#DE7C00;--sp5:#E3E935}
+.tone-peacock {--tone:#2F6F7A;--on-tone:#fff; --sp1:#F2CD00;--sp2:#E3E935;--sp3:#fff;--sp4:#CFE0D7;--sp5:#FCB456}
+.tone-matcha  {--tone:#9EA700;--on-tone:var(--espresso); --sp1:#971B2F;--sp2:#003D4C;--sp3:#2F6F7A;--sp4:#F2CD00;--sp5:#fff}
+.tone-banana  {--tone:#F2CD00;--on-tone:var(--espresso); --sp1:#971B2F;--sp2:#003D4C;--sp3:#2F6F7A;--sp4:#9EA700;--sp5:#5D295F}
+.tone-pink    {--tone:#F0BFC4;--on-tone:var(--espresso); --sp1:#971B2F;--sp2:#003D4C;--sp3:#2F6F7A;--sp4:#9EA700;--sp5:#F2CD00}
+.tone-greysky {--tone:#CFE0D7;--on-tone:var(--midnight); --sp1:#971B2F;--sp2:#003D4C;--sp3:#2F6F7A;--sp4:#9EA700;--sp5:#F2CD00}
+.tone-purple  {--tone:#5D295F;--on-tone:#fff; --sp1:#F2CD00;--sp2:#E3E935;--sp3:#CFE0D7;--sp4:#F0BFC4;--sp5:#fff}
+
+/* the media card: image block + flat colour block + horizon rule */
+.e-card{
+  display:flex;flex-direction:column;background:var(--tone);color:var(--on-tone);
+  text-decoration:none;position:relative;overflow:hidden;min-height:100%;
+}
+.e-card__img{aspect-ratio:16/10;overflow:hidden;background:var(--surface-2);flex:none}
+.e-card__img img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease}
+.e-card:hover .e-card__img img{transform:scale(1.05)}
+.e-card__body{padding:20px 22px 0;display:flex;flex-direction:column;flex:1;position:relative;z-index:2}
+.e-card h4{
+  font-family:var(--display);font-weight:600;text-transform:uppercase;
+  font-size:22px;line-height:1;letter-spacing:.02em;margin:0 0 10px;
+}
+.e-card p{font-size:13.5px;line-height:1.5;margin:0 0 18px;opacity:.9}
+/* the horizon line with the written logo left and a label right */
+.e-horizon{
+  margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  border-top:1px solid currentColor;padding:10px 22px 12px;
+  font-family:var(--display);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  position:relative;z-index:2;
+}
+.e-horizon .lbl{opacity:.85}
+
+/* spark motif */
+.spark{display:block}
+.e-card__body > *,.e-person__in > *,.e-person__body > *{position:relative;z-index:2}
+.e-spark{
+  position:absolute;pointer-events:none;z-index:0;
+  width:230px;height:230px;right:-72px;bottom:34px;opacity:.95;
+}
+.e-spark--lg{width:420px;height:420px}
+.e-spark--tl{right:auto;bottom:auto;left:-120px;top:-120px}
+
+/* big colour panel (banner / profile header) */
+.e-panel{background:var(--tone);color:var(--on-tone);position:relative;overflow:hidden}
+.e-panel__in{position:relative;z-index:2;padding:44px 44px 0}
+.e-panel h2{
+  font-family:var(--display);font-weight:600;text-transform:uppercase;
+  font-size:clamp(34px,3.8vw,56px);line-height:.94;letter-spacing:.01em;margin:14px 0 16px;max-width:15ch;
+}
+.e-panel p{max-width:42ch;font-size:15px;opacity:.92;margin:0 0 24px}
+
+.e-btn{
+  display:inline-flex;align-items:center;gap:9px;font-family:var(--display);
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+  padding:11px 20px;border:1px solid currentColor;color:inherit;text-decoration:none;cursor:pointer;background:transparent;
+}
+.e-btn:hover{background:currentColor}
+.e-btn:hover span{mix-blend-mode:difference}
+.e-btn--fill{background:var(--on-tone);color:var(--tone);border-color:var(--on-tone)}
+.e-btn:focus-visible{outline:3px solid currentColor;outline-offset:3px}
+
+.e-label{
+  font-family:var(--display);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  display:inline-block;padding:4px 9px;background:var(--on-tone);color:var(--tone);
+}
+
+/* circular portrait card (from the social-card system) */
+.e-person{background:var(--tone);color:var(--on-tone);position:relative;overflow:hidden;display:flex;flex-direction:column;text-decoration:none}
+.e-person__in{padding:22px 22px 0;position:relative;z-index:2;display:flex;gap:16px;align-items:flex-start}
+.e-person__photo{width:86px;height:86px;border-radius:50%;object-fit:cover;object-position:top center;background:#fff;flex:none}
+.e-person h4{font-family:var(--display);text-transform:uppercase;font-weight:600;font-size:21px;line-height:.98;margin:2px 0 6px;letter-spacing:.02em}
+.e-person .role{font-size:12px;opacity:.9;display:block;margin-bottom:8px}
+.e-person p{font-size:12.5px;line-height:1.45;opacity:.9;margin:0}
+.e-person__body{padding:0 22px 16px;position:relative;z-index:2}
+
+/* accordion tabs coloured per section */
+.e-acc{display:grid;grid-template-columns:300px 1fr}
+.e-acc__idx button{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;
+  border:0;cursor:pointer;padding:18px 20px;background:var(--surface-2);color:var(--espresso);
+  font-family:var(--display);font-size:17px;letter-spacing:.02em;text-transform:uppercase;font-weight:500;
+  border-bottom:1px solid #fff;
+}
+.e-acc__idx button:hover{filter:brightness(.97)}
+.e-acc__idx button.is-on{background:var(--tone);color:var(--on-tone)}
+.e-acc__panel{position:relative;overflow:hidden;background:var(--tone);color:var(--on-tone);padding:36px 40px}
+.e-acc__panel .lede{font-size:22px;line-height:1.35;margin:0 0 18px;max-width:42ch;position:relative;z-index:2}
+.e-acc__panel p{font-size:14.5px;max-width:58ch;margin:0 0 14px;opacity:.92;position:relative;z-index:2}
+.e-acc__panel .foot{position:relative;z-index:2}
+
+@media (max-width:980px){
+  .d-feature,.d-profile,.e-acc,.d-acc{grid-template-columns:1fr}
+  .d-banner{grid-template-columns:1fr}
+  .d-acc__panel,.e-acc__panel{border-left:0}
+  .d-list a{grid-template-columns:48px 1fr;gap:14px}
+  .d-list .exp,.d-list .role{display:none}
+}
+@media (max-width:760px){
+  .d-tiles{grid-template-columns:1fr}
+  .d-tiles > *{border-right:0;border-bottom:1px solid var(--line)}
+  .d-storybar{grid-template-columns:1fr;gap:12px;padding:18px 24px}
+  .e-panel__in,.d-banner__copy{padding:28px 24px 0}
 }
 
 </style>
@@ -723,6 +1324,493 @@ body.anno-off .anno,body.anno-off .mk-in{display:none}
   </div>
 </section>
 
+<!-- ============ ROUTE D ============ -->
+<section class="route">
+  <div class="route__head">
+    <span class="route__badge" style="background:#141414">Route D</span>
+    <h2>Broadsheet</h2>
+    <span class="route__tag" style="border-color:#2F6F7A;color:#2F6F7A">Alternative composition</span>
+  </div>
+  <p class="route__sub">The index becomes a numbered contents list and the selected section gets a giant ghosted numeral behind the copy. Same behaviour as signed off &mdash; it just stops looking like a settings panel and starts looking like chapters.</p>
+
+  <div class="swatches">
+    <span class="sw"><i style="background:#FBFAF8"></i>Paper</span>
+    <span class="sw"><i style="background:#141414"></i>Near-black &mdash; rules</span>
+    <span class="sw"><i style="background:#971B2F"></i>Merlot &mdash; selected numeral</span>
+    <span class="sw"><i style="background:#DAD6CD"></i>Stone &mdash; ghost numeral</span>
+  </div>
+
+  <div class="frame">
+    <div class="frame__label">Desktop &middot; Who we are</div>
+    <div class="r r-d fe-pad">
+      <p class="d-kicker">About Frontier</p>
+      <div class="fe-sechead" style="margin-bottom:0;border-bottom:0"><h3>More about Frontier</h3></div>
+
+      <div class="d-acc" data-vtab-group style="margin-top:18px">
+        <div class="d-acc__idx" role="tablist" aria-label="More about Frontier">
+          <button data-vtab="a" class="is-on" role="tab" aria-selected="true">
+            <span class="d-num">01</span><h4>Our past, present and future</h4>
+          </button>
+          <button data-vtab="b" role="tab" aria-selected="false">
+            <span class="d-num">02</span><h4>Valuing diversity and inclusion</h4>
+          </button>
+          <button data-vtab="c" role="tab" aria-selected="false">
+            <span class="d-num">03</span><h4>A shared work ethic</h4>
+          </button>
+          <button data-vtab="d" role="tab" aria-selected="false">
+            <span class="d-num">04</span><h4>What defines Frontier</h4>
+          </button>
+        </div>
+
+        <div class="d-acc__panel">
+          <div class="fe-pane is-on" data-vpane="a" role="tabpanel">
+            <span class="d-ghost">01</span>
+            <p class="lede">Founded in 1999 by economists who wanted to work on the most interesting problems, for the most interesting clients. <span class="mk-in">1</span></p>
+            <p>The bedrock of our business is that we are owned entirely by our staff. This means everyone is driven to deliver the highest quality work, with an independent mind, for clients we really care about.</p>
+            <p>People like what we do, and our business has grown. The problems we solve change constantly, but our values do not.</p>
+            <a class="fe-btn fe-btn--sm" style="position:relative" href="#">How we created Frontier</a>
+          </div>
+          <div class="fe-pane" data-vpane="b" role="tabpanel">
+            <span class="d-ghost">02</span>
+            <p class="lede">A workforce spread across nine countries, and a workplace we want everyone to be able to be themselves in.</p>
+            <p>We want to reflect and embrace the power of diversity and cultural difference in everything we do for our clients and through our internal work.</p>
+            <p>We are an inclusive workplace where people are free to be who they want to be. We will be bold, visible and proactive to make sure Frontier continues to be a workplace that embraces diversity.</p>
+            <a class="fe-btn fe-btn--sm" style="position:relative" href="#">Our D&amp;I initiatives</a>
+          </div>
+          <div class="fe-pane" data-vpane="c" role="tabpanel">
+            <span class="d-ghost">03</span>
+            <p class="lede">We work with clients all over the world, from offices in Amsterdam, Berlin, Brussels, Cologne, Dublin, Madrid, London, Paris and Prague.</p>
+            <p>We&rsquo;ve grown through recessions, booms and busts and count some of the most admired organisations in the world among our long-standing clients.</p>
+            <p>We believe in strong client relationships, have a passion for understanding the truth and employ people who want to make a difference.</p>
+          </div>
+          <div class="fe-pane" data-vpane="d" role="tabpanel">
+            <span class="d-ghost">04</span>
+            <p class="lede">Three things shape how we work, whoever the client and whatever the question.</p>
+            <p><strong>Uncompromising thinking</strong> &mdash; we deliver exceptional work with integrity and objectivity.</p>
+            <p><strong>Looking beyond the obvious</strong> &mdash; we think more widely than the immediate question, and deliver more than expected.</p>
+            <p><strong>A refreshing experience</strong> &mdash; we&rsquo;re smart and friendly people who communicate complex ideas with clarity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="anno">
+    <ul style="margin-top:0">
+      <li><span class="mk">1</span><strong>Numbering does real work here.</strong> It tells the reader how much there is, gives every section a spoken name (&ldquo;section three&rdquo;), and makes the ghost numeral in the panel meaningful rather than decorative.</li>
+      <li><strong>Nothing changes functionally</strong> &mdash; same index, same one-at-a-time panel, same anchors, same mobile stack. This is the cheapest of the four bolder concepts to build.</li>
+      <li><strong>The ghost numeral needs a minimum panel height</strong> or it crops oddly on short sections. That settles the open question in the brief in favour of a normalised minimum rather than purely content-led.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ ROUTE E ============ -->
+<section class="route">
+  <div class="route__head">
+    <span class="route__badge" style="background:#971B2F">Route E</span>
+    <h2>Media card</h2>
+    <span class="route__tag" style="border-color:#2F6F7A;color:#2F6F7A">Alternative composition</span>
+  </div>
+  <p class="route__sub">Each section owns a brand colour. Selecting it floods the panel with that colour and brings the Spark in behind the copy, so moving through the accordion is a change of surface rather than a change of text. Click through all four.</p>
+
+  <div class="swatches">
+    <span class="sw"><i style="background:#003D4C"></i>Midnight</span>
+    <span class="sw"><i style="background:#971B2F"></i>Merlot</span>
+    <span class="sw"><i style="background:#2F6F7A"></i>Peacock</span>
+    <span class="sw"><i style="background:#9EA700"></i>Matcha</span>
+  </div>
+
+  <div class="frame">
+    <div class="frame__label">Desktop &middot; Who we are</div>
+    <div class="r r-e fe-pad">
+      <div class="fe-sechead"><h3>More about Frontier</h3></div>
+
+      <div class="e-acc" data-vtab-group>
+        <div class="e-acc__idx" role="tablist" aria-label="More about Frontier">
+          <button data-vtab="a" class="is-on tone tone-midnight" role="tab" aria-selected="true">Our past, present and future <span>&rarr;</span></button>
+          <button data-vtab="b" class="tone tone-merlot" role="tab" aria-selected="false">Valuing diversity and inclusion <span>&rarr;</span></button>
+          <button data-vtab="c" class="tone tone-peacock" role="tab" aria-selected="false">A shared work ethic <span>&rarr;</span></button>
+          <button data-vtab="d" class="tone tone-matcha" role="tab" aria-selected="false">What defines Frontier <span>&rarr;</span></button>
+        </div>
+
+        <div>
+          <div class="fe-pane is-on e-acc__panel tone tone-midnight" data-vpane="a" role="tabpanel">
+            <svg class="spark e-spark e-spark--lg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <g stroke="var(--sp1)" fill="none" stroke-linecap="butt">
+    <path d="M123.9 89.8 A26.0 26.0 0 0 1 125.8 103.2" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M130.1 86.5 A33.0 33.0 0 0 1 132.7 104.6" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M136.2 83.0 A40.0 40.0 0 0 1 139.5 106.4" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M142.1 79.2 A47.0 47.0 0 0 1 146.2 108.4" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M147.9 75.1 A54.0 54.0 0 0 1 152.9 110.7" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M153.6 70.9 A61.0 61.0 0 0 1 159.6 113.2" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M159.1 66.4 A68.0 68.0 0 0 1 166.1 116.0" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M164.5 61.7 A75.0 75.0 0 0 1 172.5 119.0" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M169.7 56.8 A82.0 82.0 0 0 1 178.9 122.3" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M174.7 51.7 A89.0 89.0 0 0 1 185.2 125.9" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L159.9 84.0 L162.0 98.9 Z" fill="var(--sp1)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp2)" fill="none" stroke-linecap="butt">
+    <path d="M117.1 119.6 A26.0 26.0 0 0 1 105.0 125.5" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M122.1 124.5 A33.0 33.0 0 0 1 105.7 132.5" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M127.4 129.2 A40.0 40.0 0 0 1 106.1 139.5" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M132.8 133.6 A47.0 47.0 0 0 1 106.3 146.6" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M138.4 137.9 A54.0 54.0 0 0 1 106.2 153.6" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M144.2 142.0 A61.0 61.0 0 0 1 105.8 160.7" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M150.2 145.9 A68.0 68.0 0 0 1 105.2 167.8" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M156.3 149.5 A75.0 75.0 0 0 1 104.3 174.9" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M162.6 152.9 A82.0 82.0 0 0 1 103.1 181.9" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M169.1 156.1 A89.0 89.0 0 0 1 101.7 189.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L133.8 152.0 L120.2 158.6 Z" fill="var(--sp2)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp3)" fill="none" stroke-linecap="butt">
+    <path d="M86.6 122.3 A26.0 26.0 0 0 1 77.3 112.6" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M83.5 128.6 A33.0 33.0 0 0 1 70.8 115.4" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M80.7 135.1 A40.0 40.0 0 0 1 64.3 118.0" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M78.2 141.6 A47.0 47.0 0 0 1 57.6 120.4" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M75.8 148.3 A54.0 54.0 0 0 1 50.9 122.5" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M73.7 155.1 A61.0 61.0 0 0 1 44.1 124.3" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M71.9 161.9 A68.0 68.0 0 0 1 37.1 125.9" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M70.3 168.9 A75.0 75.0 0 0 1 30.1 127.2" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M69.0 175.9 A82.0 82.0 0 0 1 23.0 128.3" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M68.0 183.0 A89.0 89.0 0 0 1 15.9 129.1" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L61.0 148.2 L50.5 137.3 Z" fill="var(--sp3)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp4)" fill="none" stroke-linecap="butt">
+    <path d="M74.7 94.2 A26.0 26.0 0 0 1 81.0 82.3" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M67.7 93.2 A33.0 33.0 0 0 1 76.3 77.0" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M60.7 92.5 A40.0 40.0 0 0 1 71.8 71.6" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M53.7 92.1 A47.0 47.0 0 0 1 67.5 66.0" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M46.6 91.9 A54.0 54.0 0 0 1 63.4 60.3" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M39.5 92.0 A61.0 61.0 0 0 1 59.6 54.3" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M32.4 92.4 A68.0 68.0 0 0 1 55.9 48.2" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M25.3 93.1 A75.0 75.0 0 0 1 52.5 42.0" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M18.2 94.0 A82.0 82.0 0 0 1 49.3 35.6" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M11.1 95.2 A89.0 89.0 0 0 1 46.3 29.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L42.1 77.8 L49.2 64.4 Z" fill="var(--sp4)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp5)" fill="none" stroke-linecap="butt">
+    <path d="M97.7 74.1 A26.0 26.0 0 0 1 111.0 76.4" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M96.5 67.2 A33.0 33.0 0 0 1 114.5 70.4" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M95.0 60.3 A40.0 40.0 0 0 1 118.3 64.4" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M93.2 53.5 A47.0 47.0 0 0 1 122.3 58.6" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M91.2 46.7 A54.0 54.0 0 0 1 126.5 53.0" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M88.9 40.0 A61.0 61.0 0 0 1 131.0 47.4" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M86.3 33.4 A68.0 68.0 0 0 1 135.6 42.1" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M83.5 26.8 A75.0 75.0 0 0 1 140.5 36.9" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M80.4 20.4 A82.0 82.0 0 0 1 145.6 31.9" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M77.1 14.0 A89.0 89.0 0 0 1 150.9 27.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L103.2 38.1 L118.1 40.7 Z" fill="var(--sp5)" stroke="none" opacity=".92"/>
+</svg>
+            <p class="lede">Founded in 1999 by economists who wanted to work on the most interesting problems, for the most interesting clients. <span class="mk-in">2</span></p>
+            <p>The bedrock of our business is that we are owned entirely by our staff. This means everyone is driven to deliver the highest quality work, with an independent mind, for clients we really care about.</p>
+            <div class="foot"><a class="e-btn e-btn--fill" href="#"><span>How we created Frontier</span></a></div>
+          </div>
+          <div class="fe-pane e-acc__panel tone tone-merlot" data-vpane="b" role="tabpanel">
+            <svg class="spark e-spark e-spark--lg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <g stroke="var(--sp1)" fill="none" stroke-linecap="butt">
+    <path d="M123.9 89.8 A26.0 26.0 0 0 1 125.8 103.2" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M130.1 86.5 A33.0 33.0 0 0 1 132.7 104.6" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M136.2 83.0 A40.0 40.0 0 0 1 139.5 106.4" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M142.1 79.2 A47.0 47.0 0 0 1 146.2 108.4" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M147.9 75.1 A54.0 54.0 0 0 1 152.9 110.7" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M153.6 70.9 A61.0 61.0 0 0 1 159.6 113.2" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M159.1 66.4 A68.0 68.0 0 0 1 166.1 116.0" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M164.5 61.7 A75.0 75.0 0 0 1 172.5 119.0" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M169.7 56.8 A82.0 82.0 0 0 1 178.9 122.3" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M174.7 51.7 A89.0 89.0 0 0 1 185.2 125.9" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L159.9 84.0 L162.0 98.9 Z" fill="var(--sp1)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp2)" fill="none" stroke-linecap="butt">
+    <path d="M117.1 119.6 A26.0 26.0 0 0 1 105.0 125.5" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M122.1 124.5 A33.0 33.0 0 0 1 105.7 132.5" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M127.4 129.2 A40.0 40.0 0 0 1 106.1 139.5" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M132.8 133.6 A47.0 47.0 0 0 1 106.3 146.6" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M138.4 137.9 A54.0 54.0 0 0 1 106.2 153.6" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M144.2 142.0 A61.0 61.0 0 0 1 105.8 160.7" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M150.2 145.9 A68.0 68.0 0 0 1 105.2 167.8" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M156.3 149.5 A75.0 75.0 0 0 1 104.3 174.9" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M162.6 152.9 A82.0 82.0 0 0 1 103.1 181.9" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M169.1 156.1 A89.0 89.0 0 0 1 101.7 189.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L133.8 152.0 L120.2 158.6 Z" fill="var(--sp2)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp3)" fill="none" stroke-linecap="butt">
+    <path d="M86.6 122.3 A26.0 26.0 0 0 1 77.3 112.6" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M83.5 128.6 A33.0 33.0 0 0 1 70.8 115.4" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M80.7 135.1 A40.0 40.0 0 0 1 64.3 118.0" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M78.2 141.6 A47.0 47.0 0 0 1 57.6 120.4" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M75.8 148.3 A54.0 54.0 0 0 1 50.9 122.5" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M73.7 155.1 A61.0 61.0 0 0 1 44.1 124.3" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M71.9 161.9 A68.0 68.0 0 0 1 37.1 125.9" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M70.3 168.9 A75.0 75.0 0 0 1 30.1 127.2" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M69.0 175.9 A82.0 82.0 0 0 1 23.0 128.3" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M68.0 183.0 A89.0 89.0 0 0 1 15.9 129.1" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L61.0 148.2 L50.5 137.3 Z" fill="var(--sp3)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp4)" fill="none" stroke-linecap="butt">
+    <path d="M74.7 94.2 A26.0 26.0 0 0 1 81.0 82.3" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M67.7 93.2 A33.0 33.0 0 0 1 76.3 77.0" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M60.7 92.5 A40.0 40.0 0 0 1 71.8 71.6" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M53.7 92.1 A47.0 47.0 0 0 1 67.5 66.0" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M46.6 91.9 A54.0 54.0 0 0 1 63.4 60.3" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M39.5 92.0 A61.0 61.0 0 0 1 59.6 54.3" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M32.4 92.4 A68.0 68.0 0 0 1 55.9 48.2" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M25.3 93.1 A75.0 75.0 0 0 1 52.5 42.0" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M18.2 94.0 A82.0 82.0 0 0 1 49.3 35.6" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M11.1 95.2 A89.0 89.0 0 0 1 46.3 29.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L42.1 77.8 L49.2 64.4 Z" fill="var(--sp4)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp5)" fill="none" stroke-linecap="butt">
+    <path d="M97.7 74.1 A26.0 26.0 0 0 1 111.0 76.4" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M96.5 67.2 A33.0 33.0 0 0 1 114.5 70.4" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M95.0 60.3 A40.0 40.0 0 0 1 118.3 64.4" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M93.2 53.5 A47.0 47.0 0 0 1 122.3 58.6" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M91.2 46.7 A54.0 54.0 0 0 1 126.5 53.0" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M88.9 40.0 A61.0 61.0 0 0 1 131.0 47.4" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M86.3 33.4 A68.0 68.0 0 0 1 135.6 42.1" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M83.5 26.8 A75.0 75.0 0 0 1 140.5 36.9" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M80.4 20.4 A82.0 82.0 0 0 1 145.6 31.9" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M77.1 14.0 A89.0 89.0 0 0 1 150.9 27.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L103.2 38.1 L118.1 40.7 Z" fill="var(--sp5)" stroke="none" opacity=".92"/>
+</svg>
+            <p class="lede">A workforce spread across nine countries, and a workplace we want everyone to be able to be themselves in.</p>
+            <p>We want to reflect and embrace the power of diversity and cultural difference in everything we do for our clients and through our internal work. We will be bold, visible and proactive to make sure Frontier continues to be a workplace that embraces diversity.</p>
+            <div class="foot"><a class="e-btn e-btn--fill" href="#"><span>Our D&amp;I initiatives</span></a></div>
+          </div>
+          <div class="fe-pane e-acc__panel tone tone-peacock" data-vpane="c" role="tabpanel">
+            <svg class="spark e-spark e-spark--lg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <g stroke="var(--sp1)" fill="none" stroke-linecap="butt">
+    <path d="M123.9 89.8 A26.0 26.0 0 0 1 125.8 103.2" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M130.1 86.5 A33.0 33.0 0 0 1 132.7 104.6" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M136.2 83.0 A40.0 40.0 0 0 1 139.5 106.4" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M142.1 79.2 A47.0 47.0 0 0 1 146.2 108.4" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M147.9 75.1 A54.0 54.0 0 0 1 152.9 110.7" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M153.6 70.9 A61.0 61.0 0 0 1 159.6 113.2" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M159.1 66.4 A68.0 68.0 0 0 1 166.1 116.0" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M164.5 61.7 A75.0 75.0 0 0 1 172.5 119.0" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M169.7 56.8 A82.0 82.0 0 0 1 178.9 122.3" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M174.7 51.7 A89.0 89.0 0 0 1 185.2 125.9" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L159.9 84.0 L162.0 98.9 Z" fill="var(--sp1)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp2)" fill="none" stroke-linecap="butt">
+    <path d="M117.1 119.6 A26.0 26.0 0 0 1 105.0 125.5" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M122.1 124.5 A33.0 33.0 0 0 1 105.7 132.5" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M127.4 129.2 A40.0 40.0 0 0 1 106.1 139.5" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M132.8 133.6 A47.0 47.0 0 0 1 106.3 146.6" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M138.4 137.9 A54.0 54.0 0 0 1 106.2 153.6" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M144.2 142.0 A61.0 61.0 0 0 1 105.8 160.7" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M150.2 145.9 A68.0 68.0 0 0 1 105.2 167.8" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M156.3 149.5 A75.0 75.0 0 0 1 104.3 174.9" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M162.6 152.9 A82.0 82.0 0 0 1 103.1 181.9" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M169.1 156.1 A89.0 89.0 0 0 1 101.7 189.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L133.8 152.0 L120.2 158.6 Z" fill="var(--sp2)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp3)" fill="none" stroke-linecap="butt">
+    <path d="M86.6 122.3 A26.0 26.0 0 0 1 77.3 112.6" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M83.5 128.6 A33.0 33.0 0 0 1 70.8 115.4" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M80.7 135.1 A40.0 40.0 0 0 1 64.3 118.0" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M78.2 141.6 A47.0 47.0 0 0 1 57.6 120.4" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M75.8 148.3 A54.0 54.0 0 0 1 50.9 122.5" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M73.7 155.1 A61.0 61.0 0 0 1 44.1 124.3" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M71.9 161.9 A68.0 68.0 0 0 1 37.1 125.9" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M70.3 168.9 A75.0 75.0 0 0 1 30.1 127.2" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M69.0 175.9 A82.0 82.0 0 0 1 23.0 128.3" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M68.0 183.0 A89.0 89.0 0 0 1 15.9 129.1" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L61.0 148.2 L50.5 137.3 Z" fill="var(--sp3)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp4)" fill="none" stroke-linecap="butt">
+    <path d="M74.7 94.2 A26.0 26.0 0 0 1 81.0 82.3" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M67.7 93.2 A33.0 33.0 0 0 1 76.3 77.0" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M60.7 92.5 A40.0 40.0 0 0 1 71.8 71.6" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M53.7 92.1 A47.0 47.0 0 0 1 67.5 66.0" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M46.6 91.9 A54.0 54.0 0 0 1 63.4 60.3" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M39.5 92.0 A61.0 61.0 0 0 1 59.6 54.3" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M32.4 92.4 A68.0 68.0 0 0 1 55.9 48.2" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M25.3 93.1 A75.0 75.0 0 0 1 52.5 42.0" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M18.2 94.0 A82.0 82.0 0 0 1 49.3 35.6" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M11.1 95.2 A89.0 89.0 0 0 1 46.3 29.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L42.1 77.8 L49.2 64.4 Z" fill="var(--sp4)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp5)" fill="none" stroke-linecap="butt">
+    <path d="M97.7 74.1 A26.0 26.0 0 0 1 111.0 76.4" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M96.5 67.2 A33.0 33.0 0 0 1 114.5 70.4" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M95.0 60.3 A40.0 40.0 0 0 1 118.3 64.4" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M93.2 53.5 A47.0 47.0 0 0 1 122.3 58.6" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M91.2 46.7 A54.0 54.0 0 0 1 126.5 53.0" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M88.9 40.0 A61.0 61.0 0 0 1 131.0 47.4" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M86.3 33.4 A68.0 68.0 0 0 1 135.6 42.1" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M83.5 26.8 A75.0 75.0 0 0 1 140.5 36.9" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M80.4 20.4 A82.0 82.0 0 0 1 145.6 31.9" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M77.1 14.0 A89.0 89.0 0 0 1 150.9 27.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L103.2 38.1 L118.1 40.7 Z" fill="var(--sp5)" stroke="none" opacity=".92"/>
+</svg>
+            <p class="lede">We work with clients all over the world, from offices in Amsterdam, Berlin, Brussels, Cologne, Dublin, Madrid, London, Paris and Prague.</p>
+            <p>We&rsquo;ve grown through recessions, booms and busts and count some of the most admired organisations in the world among our long-standing clients. We believe in strong client relationships and employ people who want to make a difference.</p>
+          </div>
+          <div class="fe-pane e-acc__panel tone tone-matcha" data-vpane="d" role="tabpanel">
+            <svg class="spark e-spark e-spark--lg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <g stroke="var(--sp1)" fill="none" stroke-linecap="butt">
+    <path d="M123.9 89.8 A26.0 26.0 0 0 1 125.8 103.2" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M130.1 86.5 A33.0 33.0 0 0 1 132.7 104.6" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M136.2 83.0 A40.0 40.0 0 0 1 139.5 106.4" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M142.1 79.2 A47.0 47.0 0 0 1 146.2 108.4" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M147.9 75.1 A54.0 54.0 0 0 1 152.9 110.7" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M153.6 70.9 A61.0 61.0 0 0 1 159.6 113.2" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M159.1 66.4 A68.0 68.0 0 0 1 166.1 116.0" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M164.5 61.7 A75.0 75.0 0 0 1 172.5 119.0" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M169.7 56.8 A82.0 82.0 0 0 1 178.9 122.3" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M174.7 51.7 A89.0 89.0 0 0 1 185.2 125.9" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L159.9 84.0 L162.0 98.9 Z" fill="var(--sp1)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp2)" fill="none" stroke-linecap="butt">
+    <path d="M117.1 119.6 A26.0 26.0 0 0 1 105.0 125.5" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M122.1 124.5 A33.0 33.0 0 0 1 105.7 132.5" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M127.4 129.2 A40.0 40.0 0 0 1 106.1 139.5" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M132.8 133.6 A47.0 47.0 0 0 1 106.3 146.6" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M138.4 137.9 A54.0 54.0 0 0 1 106.2 153.6" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M144.2 142.0 A61.0 61.0 0 0 1 105.8 160.7" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M150.2 145.9 A68.0 68.0 0 0 1 105.2 167.8" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M156.3 149.5 A75.0 75.0 0 0 1 104.3 174.9" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M162.6 152.9 A82.0 82.0 0 0 1 103.1 181.9" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M169.1 156.1 A89.0 89.0 0 0 1 101.7 189.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L133.8 152.0 L120.2 158.6 Z" fill="var(--sp2)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp3)" fill="none" stroke-linecap="butt">
+    <path d="M86.6 122.3 A26.0 26.0 0 0 1 77.3 112.6" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M83.5 128.6 A33.0 33.0 0 0 1 70.8 115.4" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M80.7 135.1 A40.0 40.0 0 0 1 64.3 118.0" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M78.2 141.6 A47.0 47.0 0 0 1 57.6 120.4" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M75.8 148.3 A54.0 54.0 0 0 1 50.9 122.5" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M73.7 155.1 A61.0 61.0 0 0 1 44.1 124.3" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M71.9 161.9 A68.0 68.0 0 0 1 37.1 125.9" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M70.3 168.9 A75.0 75.0 0 0 1 30.1 127.2" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M69.0 175.9 A82.0 82.0 0 0 1 23.0 128.3" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M68.0 183.0 A89.0 89.0 0 0 1 15.9 129.1" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L61.0 148.2 L50.5 137.3 Z" fill="var(--sp3)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp4)" fill="none" stroke-linecap="butt">
+    <path d="M74.7 94.2 A26.0 26.0 0 0 1 81.0 82.3" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M67.7 93.2 A33.0 33.0 0 0 1 76.3 77.0" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M60.7 92.5 A40.0 40.0 0 0 1 71.8 71.6" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M53.7 92.1 A47.0 47.0 0 0 1 67.5 66.0" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M46.6 91.9 A54.0 54.0 0 0 1 63.4 60.3" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M39.5 92.0 A61.0 61.0 0 0 1 59.6 54.3" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M32.4 92.4 A68.0 68.0 0 0 1 55.9 48.2" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M25.3 93.1 A75.0 75.0 0 0 1 52.5 42.0" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M18.2 94.0 A82.0 82.0 0 0 1 49.3 35.6" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M11.1 95.2 A89.0 89.0 0 0 1 46.3 29.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L42.1 77.8 L49.2 64.4 Z" fill="var(--sp4)" stroke="none" opacity=".92"/>
+  <g stroke="var(--sp5)" fill="none" stroke-linecap="butt">
+    <path d="M97.7 74.1 A26.0 26.0 0 0 1 111.0 76.4" stroke-width="3.4" stroke-dasharray="5.0 4.0"/>
+    <path d="M96.5 67.2 A33.0 33.0 0 0 1 114.5 70.4" stroke-width="3.3" stroke-dasharray="5.7 4.5"/>
+    <path d="M95.0 60.3 A40.0 40.0 0 0 1 118.3 64.4" stroke-width="3.2" stroke-dasharray="6.4 5.1"/>
+    <path d="M93.2 53.5 A47.0 47.0 0 0 1 122.3 58.6" stroke-width="3.0" stroke-dasharray="7.1 5.7"/>
+    <path d="M91.2 46.7 A54.0 54.0 0 0 1 126.5 53.0" stroke-width="2.9" stroke-dasharray="7.8 6.2"/>
+    <path d="M88.9 40.0 A61.0 61.0 0 0 1 131.0 47.4" stroke-width="2.8" stroke-dasharray="8.5 6.8"/>
+    <path d="M86.3 33.4 A68.0 68.0 0 0 1 135.6 42.1" stroke-width="2.7" stroke-dasharray="9.2 7.3"/>
+    <path d="M83.5 26.8 A75.0 75.0 0 0 1 140.5 36.9" stroke-width="2.6" stroke-dasharray="9.9 7.9"/>
+    <path d="M80.4 20.4 A82.0 82.0 0 0 1 145.6 31.9" stroke-width="2.4" stroke-dasharray="10.6 8.4"/>
+    <path d="M77.1 14.0 A89.0 89.0 0 0 1 150.9 27.0" stroke-width="2.3" stroke-dasharray="11.3 8.9"/>
+  </g>
+  <path d="M100 100 L103.2 38.1 L118.1 40.7 Z" fill="var(--sp5)" stroke="none" opacity=".92"/>
+</svg>
+            <p class="lede">Three things shape how we work, whoever the client and whatever the question.</p>
+            <p><strong>Uncompromising thinking</strong> &mdash; we deliver exceptional work with integrity and objectivity.</p>
+            <p><strong>Looking beyond the obvious</strong> &mdash; we think more widely than the immediate question, and deliver more than expected.</p>
+            <p><strong>A refreshing experience</strong> &mdash; we&rsquo;re smart and friendly people who communicate complex ideas with clarity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="anno">
+    <ul style="margin-top:0">
+      <li><span class="mk">2</span><strong>Selection is unmissable</strong> &mdash; the tab and the panel share a colour, so the connection between what you clicked and what you are reading is made by the surface itself, not by a 4px rule. Selection is still marked by the arrow as well, so it never relies on colour alone.</li>
+      <li><strong>Rich text on four different coloured surfaces</strong> is the real cost. Links, bold and lists all need a treatment per tone, and editors paste content without knowing which tone the section will take. That is a genuine development consideration, not just a styling one.</li>
+      <li><strong>Every pairing shown passes AA:</strong> white on Midnight 11.9:1, white on Merlot 8.4:1, white on Peacock 5.7:1, Espresso on Matcha 8.1:1.</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ============ RESPONSIVE ============ -->
+<section class="route">
+  <div class="route__head">
+    <span class="route__badge" style="background:#2F6F7A">Responsive</span>
+    <h2>Tablet and mobile</h2>
+  </div>
+  <p class="route__sub">The side-by-side layout becomes a stacked accordion in the same content order, with the index above the open panel so a heading always sits directly against its content.</p>
+
+  <div class="vp-row">
+    <div class="vp vp--tablet">
+      <div class="vp__bar">Tablet &middot; 760px</div>
+      <div class="r r-a fe-pad">
+        <div class="fe-sechead"><h3>More about Frontier</h3></div>
+        <div class="fe-acc" data-vtab-group>
+          <div class="fe-idx" role="tablist" aria-label="More about Frontier">
+            <button data-vtab="a" class="is-on" role="tab" aria-selected="true">Our past, present and future <span class="arw">&rarr;</span></button>
+            <button data-vtab="b" role="tab" aria-selected="false">Valuing diversity and inclusion <span class="arw">&rarr;</span></button>
+            <button data-vtab="c" role="tab" aria-selected="false">A shared work ethic <span class="arw">&rarr;</span></button>
+          </div>
+          <div>
+            <div class="fe-pane is-on" data-vpane="a" role="tabpanel">
+              <p class="lede">Founded in 1999 by economists who wanted to work on the most interesting problems.</p>
+              <p>The bedrock of our business is that we are owned entirely by our staff, so everyone is driven to deliver the highest quality work with an independent mind.</p>
+            </div>
+            <div class="fe-pane" data-vpane="b" role="tabpanel">
+              <p class="lede">A workforce spread across nine countries, and a workplace we want everyone to be themselves in.</p>
+              <p>We want to reflect and embrace the power of diversity and cultural difference in everything we do.</p>
+            </div>
+            <div class="fe-pane" data-vpane="c" role="tabpanel">
+              <p class="lede">We work with clients all over the world, from nine offices across Europe.</p>
+              <p>We&rsquo;ve grown through recessions, booms and busts and count some of the most admired organisations in the world among our clients.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vp vp--mobile">
+      <div class="vp__bar">Mobile &middot; 390px</div>
+      <div class="r r-a fe-pad">
+        <div class="fe-sechead"><h3>More about Frontier</h3></div>
+        <div class="fe-acc" data-vtab-group>
+          <div class="fe-idx" role="tablist" aria-label="More about Frontier">
+            <button data-vtab="a" class="is-on" role="tab" aria-selected="true">Our past, present and future <span class="arw">&rarr;</span></button>
+            <button data-vtab="b" role="tab" aria-selected="false">Valuing diversity and inclusion <span class="arw">&rarr;</span></button>
+            <button data-vtab="c" role="tab" aria-selected="false">A shared work ethic <span class="arw">&rarr;</span></button>
+          </div>
+          <div>
+            <div class="fe-pane is-on" data-vpane="a" role="tabpanel">
+              <p class="lede">Founded in 1999 by economists who wanted to work on the most interesting problems.</p>
+              <p>The bedrock of our business is that we are owned entirely by our staff, so everyone is driven to deliver the highest quality work with an independent mind.</p>
+            </div>
+            <div class="fe-pane" data-vpane="b" role="tabpanel">
+              <p class="lede">A workforce spread across nine countries, and a workplace we want everyone to be themselves in.</p>
+              <p>We want to reflect and embrace the power of diversity and cultural difference in everything we do.</p>
+            </div>
+            <div class="fe-pane" data-vpane="c" role="tabpanel">
+              <p class="lede">We work with clients all over the world, from nine offices across Europe.</p>
+              <p>We&rsquo;ve grown through recessions, booms and busts and count some of the most admired organisations in the world among our clients.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="anno">
+    <ul style="margin-top:0">
+      <li><strong>No fixed panel heights at narrow widths</strong> &mdash; the panel is content-led once stacked, so nothing clips. The minimum-height question only applies to the desktop side-by-side treatment.</li>
+      <li><strong>Selected state survives the change</strong>: the same contrasting surface and arrow mark the open section, so selection never depends on position alone.</li>
+      <li><strong>Keyboard behaviour is identical at every width</strong> &mdash; tab to the index, arrow keys to move between sections, and each section keeps its permanent anchor for deep linking.</li>
+    </ul>
+  </div>
+</section>
+
   <div class="footer-note">
     Design phase &mdash; three routes per component over the signed-off wireframe layouts.
     Colour and type from the Frontier Economics Visual Brand Guidelines 2023; content and imagery from
@@ -749,9 +1837,28 @@ body.anno-off .anno,body.anno-off .mk-in{display:none}
   });
 
   /* ---------- featured items carousel ---------- */
+  function syncArrows(car) {
+    var track = car.querySelector('[data-track]');
+    if (!track) return;
+    var atStart = track.scrollLeft <= 1;
+    var atEnd = track.scrollLeft >= (track.scrollWidth - track.clientWidth - 1);
+    var prev = car.querySelector('[data-slide="prev"]');
+    var next = car.querySelector('[data-slide="next"]');
+    if (prev) prev.disabled = atStart;
+    if (next) next.disabled = atEnd;
+  }
+
+  document.querySelectorAll('[data-carousel]').forEach(function (car) {
+    var track = car.querySelector('[data-track]');
+    if (!track) return;
+    syncArrows(car);
+    track.addEventListener('scroll', function () { syncArrows(car); });
+    window.addEventListener('resize', function () { syncArrows(car); });
+  });
+
   document.addEventListener('click', function (e) {
     var nav = e.target.closest('[data-slide]');
-    if (!nav) return;
+    if (!nav || nav.disabled) return;
     var car = nav.closest('[data-carousel]');
     var track = car.querySelector('[data-track]');
     if (!track || !track.firstElementChild) return;
@@ -951,6 +2058,72 @@ body.anno-off .anno,body.anno-off .mk-in{display:none}
     input.value = seed.dataset.seed;
     input.focus();
     input.dispatchEvent(new Event('input'));
+  });
+
+  /* ---------- expanding columns (shutter / colour columns) ---------- */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-col]');
+    if (!btn) return;
+    var group = btn.closest('[data-col-group]');
+    var col = btn.closest('.fx-col');
+    group.querySelectorAll('.fx-col').forEach(function (c) {
+      c.classList.remove('is-on');
+      var t = c.querySelector('[data-col]');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+    col.classList.add('is-on');
+    btn.setAttribute('aria-expanded', 'true');
+  });
+
+  document.querySelectorAll('[data-col-group][data-auto]').forEach(function (group) {
+    var cols = [].slice.call(group.querySelectorAll('.fx-col'));
+    if (!cols.length) return;
+    var i = 0;
+    var timer = null;
+
+    function show(n) {
+      i = (n + cols.length) % cols.length;
+      cols.forEach(function (c, k) {
+        c.classList.toggle('is-on', k === i);
+        var t = c.querySelector('[data-col]');
+        if (t) t.setAttribute('aria-expanded', k === i ? 'true' : 'false');
+      });
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() {
+      stop();
+      if (reduce) return;
+      timer = setInterval(function () { show(i + 1); }, parseInt(group.dataset.auto, 10) || 4500);
+    }
+
+    group.addEventListener('mouseenter', stop);
+    group.addEventListener('mouseleave', start);
+    group.addEventListener('focusin', stop);
+    group.addEventListener('focusout', start);
+    group.addEventListener('click', function () {
+      i = cols.findIndex(function (c) { return c.classList.contains('is-on'); });
+      start();
+    });
+
+    show(0);
+    start();
+  });
+
+  /* ---------- hover/focus preview (index lists) ---------- */
+  document.querySelectorAll('[data-preview-group]').forEach(function (group) {
+    var img = group.querySelector('[data-preview-target]');
+    var name = group.querySelector('[data-preview-name]');
+    var role = group.querySelector('[data-preview-role]');
+
+    group.querySelectorAll('[data-preview-item]').forEach(function (item) {
+      function activate() {
+        if (img && item.dataset.img) img.src = item.dataset.img;
+        if (name && item.dataset.name) name.textContent = item.dataset.name;
+        if (role && item.dataset.role) role.textContent = item.dataset.role;
+      }
+      item.addEventListener('mouseenter', activate);
+      item.addEventListener('focus', activate);
+    });
   });
 
   /* ---------- banner hero: static left, rotating right ---------- */
